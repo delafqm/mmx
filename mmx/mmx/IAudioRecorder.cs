@@ -6,8 +6,10 @@ namespace mmx
 {
     public interface IAudioRecorder
     {
-        void Start();
+        void Start(string path);
 
-        string Stop();
+        void Stop();
+
+        void Play(string path);
     }
 }
