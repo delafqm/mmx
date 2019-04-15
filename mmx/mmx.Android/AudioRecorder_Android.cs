@@ -79,17 +79,18 @@ namespace mmx.Droid
 
         public void Play(string filepath)
         {
-            if (mMediaPlayer != null)
+            if (mMediaPlayer == null)
             {
-                mMediaPlayer.Stop();
+                mMediaPlayer = new MediaPlayer();
+            }
+            else
+            {
                 mMediaPlayer.Reset();
-                mMediaPlayer.Release();
-                mMediaPlayer = null;
             }
 
-            mMediaPlayer = new MediaPlayer();
+            
             mMediaPlayer.SetDataSource(filepath);//设置播放源
-            mMediaPlayer.PrepareAsync();//异步缓冲数据
+            mMediaPlayer.Prepare();//异步缓冲数据
             mMediaPlayer.Start();//开始播放
         }
     }
