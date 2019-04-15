@@ -20,10 +20,11 @@ namespace mmx.Droid
     public class AudioRecorder_Android : Object, IAudioRecorder
     {
         MediaRecorder recorder = null;
+        MediaPlayer mMediaPlayer = null;
 
-        static string filePath = Android.OS.Environment.ExternalStorageDirectory + "/" + Android.OS.Environment.DirectoryMusic + "/testAudio.amr";
+        //static string filePath = Android.OS.Environment.ExternalStorageDirectory + "/" + Android.OS.Environment.DirectoryMusic + "/testAudio.amr";
 
-        public void Start()
+        public void Start(string filePath)
         {
             try
             {
@@ -56,7 +57,7 @@ namespace mmx.Droid
             }
         }
 
-        public string Stop()
+        public void Stop()
         {
             if (recorder != null)
             {
@@ -66,17 +67,30 @@ namespace mmx.Droid
                     recorder.Reset();
                     recorder.Release();//录音资源释放
                     recorder = null;
-                    return filePath;
                 }
                 catch (Java.Lang.IllegalStateException ex)
                 {
                     recorder.Reset();
                     recorder.Release();
                     recorder = null;
-                    return null;
                 }
             }
-            return null;
+        }
+
+        public void Play(string filepath)
+        {
+            if (mMediaPlayer != null)
+            {
+                mMediaPlayer.Stop();
+                mMediaPlayer.Reset();
+                mMediaPlayer.Release();
+                mMediaPlayer = null;
+            }
+
+            mMediaPlayer = new MediaPlayer();
+            mMediaPlayer.SetDataSource(filepath);//设置播放源
+            mMediaPlayer.PrepareAsync();//异步缓冲数据
+            mMediaPlayer.Start();//开始播放
         }
     }
 }

@@ -24,7 +24,13 @@
                                 VerticalOptions="CenterAndExpand"
                                 HorizontalOptions="Center"
                                 Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16" />
+                                FontSize="12" />
+                                <Label Text="{Binding Description}" 
+                                LineBreakMode="NoWrap" 
+                                VerticalOptions="CenterAndExpand"
+                                HorizontalOptions="Center"
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="10" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

@@ -19,12 +19,12 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="10">
-                                <Label Text="{Binding Text}" 
+                                <Label Text="{Binding Description}" 
                                 LineBreakMode="NoWrap" 
                                 VerticalOptions="CenterAndExpand"
                                 HorizontalOptions="Center"
                                 Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16" />
+                                FontSize="12" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
@@ -48,12 +48,12 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="10">
-                                <Label Text="{Binding Text}" 
+                                <Label Text="{Binding Description}" 
                                 LineBreakMode="NoWrap" 
                                 VerticalOptions="CenterAndExpand"
                                 HorizontalOptions="Center"
                                 Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16" />
+                                FontSize="12" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

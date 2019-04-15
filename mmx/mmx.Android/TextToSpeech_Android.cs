@@ -10,20 +10,22 @@ namespace mmx.Droid
     {
         TextToSpeech speaker;
         string toSpeak;
+        float _Speed = 1f;
 
         public void Speak(string text, float speed)
         {
             if (!string.IsNullOrWhiteSpace(text))
             {
+                _Speed = speed;
                 toSpeak = text;
                 if (speaker == null)
                 {
                     speaker = new TextToSpeech(MainActivity.Instance, this);
-                    speaker.SetLanguage(Java.Util.Locale.Us);
-                    speaker.SetSpeechRate(speed);//初始化的语速
+
                 }
                 else
                 {
+                    speaker.SetLanguage(Java.Util.Locale.Us);
                     speaker.SetSpeechRate(speed);//设置的语速
                     speaker.Speak(toSpeak, QueueMode.Flush, null, null);
                 }
@@ -35,6 +37,8 @@ namespace mmx.Droid
         {
             if (status.Equals(OperationResult.Success))
             {
+                speaker.SetLanguage(Java.Util.Locale.Us);
+                speaker.SetSpeechRate(_Speed);//初始化的语速
                 speaker.Speak(toSpeak, QueueMode.Flush, null, null);
             }
         }
