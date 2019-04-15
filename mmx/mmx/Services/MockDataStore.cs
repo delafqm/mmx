@@ -37,12 +37,7 @@ namespace mmx.Services
             _GradeItems = new List<Item>();
             var _GradeMockItems = new List<Item>
             {
-                new Item { Id = Guid.NewGuid().ToString(), Text = "三年级上册", Description="This is an item description." },
                 new Item { Id = Guid.NewGuid().ToString(), Text = "三年级下册", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "四年级上册", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "四年级下册", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "五年级上册", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "五年级下册", Description="This is an item description." },
             };
 
             foreach (var item in _GradeMockItems)
@@ -55,12 +50,12 @@ namespace mmx.Services
             _LessonsItems = new List<Item>();
             var _LessonsMockItems = new List<Item>
             {
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第一课", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第二课", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第三课", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第四课", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第五课", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第六课", Description="This is an item description." },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Unit 1", Description="Welcome back to school!" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Unit 2", Description="My family." },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Unit 3", Description="At the zoo!" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Unit 4", Description="Where is my car?" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Unit 5", Description="Do you like pears?" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Unit 6", Description="How many?" },
             };
 
             foreach (var item in _LessonsMockItems)
@@ -73,12 +68,15 @@ namespace mmx.Services
             _SentenceItems = new List<Item>();
             var _SentenceMockItems = new List<Item>
             {
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第一个语句", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第二个语句", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第三个语句", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第四个语句", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第五个语句", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第六个语句", Description="This is an item description." },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence1", Description="Wu Yifan, this is Amy." },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence2", Description="Hi! Nice to meet you. Where are you from?" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence3", Description="I am from the UK." },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence4", Description="Welcome back! Nice to see you again." },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence5", Description="Nice to see you, too. " },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence6", Description="Boys and girls, we have two new friends today." },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence7", Description="Hi, I am Mike. I am from the Canada." },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence8", Description="Hi, I am Sarah. I am from USA." },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence9", Description="Welcome!" },
             };
 
             foreach (var item in _SentenceMockItems)
@@ -91,12 +89,10 @@ namespace mmx.Services
             _WordItems = new List<Item>();
             var _WordMockItems = new List<Item>
             {
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第一个单词", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第二个单词", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第三个单词", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第四个单词", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第五个单词", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "第六个单词", Description="This is an item description." },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "word1", Description="cat" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "word2", Description="bag" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "word3", Description="hand" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "word4", Description="dad" },
             };
 
             foreach (var item in _WordMockItems)

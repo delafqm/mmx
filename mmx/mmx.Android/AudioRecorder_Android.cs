@@ -1,6 +1,15 @@
 ﻿using System;
-using Android.Widget;
+using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Forms;
+using System.Text;
+
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Views;
+using Android.Widget;
 using mmx.Droid;
 using Android.Media;
 using System.IO;
@@ -11,17 +20,18 @@ namespace mmx.Droid
     public class AudioRecorder_Android : Object, IAudioRecorder
     {
         MediaRecorder recorder = null;
+        MediaPlayer mMediaPlayer = null;
 
         //static string filePath = Android.OS.Environment.ExternalStorageDirectory + "/" + Android.OS.Environment.DirectoryMusic + "/testAudio.amr";
-        
-        public void Start(string filepath)
+
+        public void Start(string filePath)
         {
             try
             {
                 //Java.IO.File sdDir = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryMusic);
                 //filePath = sdDir + "/" + "testAudio.mp3";
-                if (File.Exists(filepath))
-                    File.Delete(filepath);
+                if (File.Exists(filePath))
+                    File.Delete(filePath);
 
                 //Java.IO.File myFile = new Java.IO.File(filePath);
                 //myFile.CreateNewFile();
@@ -35,7 +45,7 @@ namespace mmx.Droid
                 recorder.SetOutputFormat(OutputFormat.AmrWb);//设置输出格式
                 recorder.SetAudioEncoder(AudioEncoder.AmrWb); //设置编码器
                 recorder.SetAudioSamplingRate(16000);//设置采样率
-                recorder.SetOutputFile(filepath); //保存路径
+                recorder.SetOutputFile(filePath); //保存路径
 
                 recorder.Prepare(); // 录音准备-固定顺序
                 recorder.Start(); // 录音开始-固定顺序
@@ -67,15 +77,20 @@ namespace mmx.Droid
             }
         }
 
-        public void Play(string path)
+        public void Play(string filepath)
         {
-            MediaPlayer player = new MediaPlayer();
+            if (mMediaPlayer != null)
+            {
+                mMediaPlayer.Stop();
+                mMediaPlayer.Reset();
+                mMediaPlayer.Release();
+                mMediaPlayer = null;
+            }
 
-            player.SetDataSource(path);
-
-            player.Prepare();
-
-            player.Start();
+            mMediaPlayer = new MediaPlayer();
+            mMediaPlayer.SetDataSource(filepath);//设置播放源
+            mMediaPlayer.PrepareAsync();//异步缓冲数据
+            mMediaPlayer.Start();//开始播放
         }
     }
 }

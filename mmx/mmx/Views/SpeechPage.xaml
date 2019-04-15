@@ -6,8 +6,6 @@
         <StackLayout>
             <Editor Text="显示内容"
                     x:Name="InputText"
-                    WidthRequest="300"
-                    HeightRequest="120"
                     FontAttributes="Bold" 
                     FontSize="20" 
                     HorizontalOptions="CenterAndExpand"/>
@@ -17,8 +15,7 @@
                 <Button HorizontalOptions="CenterAndExpand" Clicked="OnSuperSlowSpeakClicked" Text="超慢"/>
             </StackLayout>
             <StackLayout Margin="10" Orientation="Horizontal">
-                <Label HorizontalOptions="CenterAndExpand" Text="状态1"/>
-                <Label HorizontalOptions="CenterAndExpand" Text="状态2"/>
+                <Label x:Name="lblStatus1" HorizontalOptions="Start" Text="状态1"/>
             </StackLayout>
 
             <Label BackgroundColor="Tomato" Margin="20" Text="自动识别内容" 
@@ -27,16 +24,10 @@
                    FontAttributes="Bold" 
                    FontSize="20" 
                    HorizontalOptions="CenterAndExpand"/>
+
             <StackLayout Orientation="Horizontal">
-                <Button x:Name="btnAudio" 
-                    HorizontalOptions="CenterAndExpand" 
-                    Text="录音" 
-                    Pressed="OnPressed"
-                    Released="OnReleased"/>
-                <Button x:Name="btnPlay"
-                    HorizontalOptions="CenterAndExpand"
-                    Text="播放"
-                    Clicked="OnStartClicked"/>
+                <Button x:Name="btnRecord" HorizontalOptions="CenterAndExpand" Text="录音识别" Pressed="OnRecordPressed" Released="OnRecordReleased"/>
+                <Button x:Name="btnPlay" HorizontalOptions="CenterAndExpand" Text="播放录音" Clicked="OnPlayClicked"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

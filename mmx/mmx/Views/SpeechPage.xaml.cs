@@ -12,20 +12,23 @@ using Xamarin.Forms.Xaml;
 
 namespace mmx.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SpeechPage : ContentPage
-    {
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class SpeechPage : ContentPage
+	{
         static string filepath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "testAudio.amr");
 
-        public SpeechPage()
+
+        public SpeechPage ()
+		{
+			InitializeComponent ();
+		}
+
+        public SpeechPage(string Text)
         {
             InitializeComponent();
-        }
 
-        public SpeechPage(string text)
-        {
-            InitializeComponent();
-
+            InputText.Text = Text;
+            InputText.IsEnabled = false;
             //BindingContext
         }
 
@@ -47,20 +50,28 @@ namespace mmx.Views
             DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.1f);
         }
 
-        void OnStartClicked(object sender, EventArgs e)
-        {
-            if (File.Exists(filepath))
-                DependencyService.Get<IAudioRecorder>().Play(filepath);
-        }
-
-        void OnPressed(object sender, EventArgs e)
+        void OnRecordPressed(object sender, EventArgs e)
         {
             DependencyService.Get<IAudioRecorder>().Start(filepath);
+
+            lblStatus1.Text = "音频录制中";
         }
 
-        void OnReleased(object sender, EventArgs e)
+        async void OnRecordReleased(object sender, EventArgs e)
         {
             DependencyService.Get<IAudioRecorder>().Stop();
+
+            lblStatus1.Text = "正在识别中";
+            //使用百度API进行语音识别
+            //OutputText.Text = await ToTextByBaidu();
+            var result = await ToTextByBaidu();
+            OutputText.Text = result;
+            lblStatus1.Text = "";
+        }
+
+        static async Task<string> ToTextByBaidu()
+        {
+            string resultmsg = "";
             if (File.Exists(filepath))
             {
                 var APP_ID = "14965195";
@@ -78,22 +89,42 @@ namespace mmx.Views
                 op["dev_pid"] = 1737;
 
                 //client.Timeout = 120000; // 若语音较长，建议设置更大的超时时间. ms
-                var result = client.Recognize(data, "amr", 16000, op);
 
-                MResult mResult = JsonConvert.DeserializeObject<MResult>(result.ToString());
+                var res = Task.Run(() =>
+                 {
+                     var result = client.Recognize(data, "amr", 16000, op);
 
-                if (mResult.err_no == 0)
-                {
-                    OutputText.Text = mResult.result[0].ToString();
-                }
-                else
-                {
-                    OutputText.Text = mResult.err_no.ToString();
-                }
+                     MResult mResult = JsonConvert.DeserializeObject<MResult>(result.ToString());
+
+                     if (mResult.err_no == 0)
+                     {
+                         return mResult.result[0].ToString();
+                     }
+                     else
+                     {
+                         return "语音错误：" + mResult.err_no.ToString();
+                     }
+                 });
+                resultmsg = await res;
             }
             else
             {
-                OutputText.Text = "无语音";
+                resultmsg = "语音错误：无语音";
+            }
+
+            return resultmsg;
+                
+        }
+
+        void OnPlayClicked(object sender, EventArgs e)
+        {
+            if (File.Exists(filepath))
+            {
+                DependencyService.Get<IAudioRecorder>().Play(filepath);
+            }
+            else
+            {
+                lblStatus1.Text = "无录音";
             }
         }
     }
