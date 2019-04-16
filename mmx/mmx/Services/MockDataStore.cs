@@ -68,15 +68,21 @@ namespace mmx.Services
             _SentenceItems = new List<Item>();
             var _SentenceMockItems = new List<Item>
             {
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence1", Description="Wu Yifan, this is Amy." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence2", Description="Hi! Nice to meet you. Where are you from?" },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence3", Description="I am from the UK." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence4", Description="Welcome back! Nice to see you again." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence5", Description="Nice to see you, too. " },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence6", Description="Boys and girls, we have two new friends today." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence7", Description="Hi, I am Mike. I am from the Canada." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence8", Description="Hi, I am Sarah. I am from USA." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence9", Description="Welcome!" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence1", Description="this is Amy" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence2", Description="Nice to meet you" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence3", Description="Where are you from" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence4", Description="I am from the UK" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence5", Description="Welcome back" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence6", Description="Nice to see you again" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence7", Description="Nice to meet you" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence8", Description="Where are you from" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence9", Description="Nice to see you" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence10", Description="Boys and girls" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence11", Description="we have two new friends today" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence12", Description="I am Mike" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence13", Description="I am from the Canada" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence14", Description="I am Sarah" },
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sentence15", Description="I am from USA" },
             };
 
             foreach (var item in _SentenceMockItems)

@@ -11,12 +11,14 @@ namespace mmx.Droid
         TextToSpeech speaker;
         string toSpeak;
         float _Speed = 1f;
+        float _Pitch = 1f;
 
-        public void Speak(string text, float speed)
+        public void Speak(string text, float speed, float pitch)
         {
             if (!string.IsNullOrWhiteSpace(text))
             {
                 _Speed = speed;
+                _Pitch = pitch;
                 toSpeak = text;
                 if (speaker == null)
                 {
@@ -26,7 +28,8 @@ namespace mmx.Droid
                 else
                 {
                     speaker.SetLanguage(Java.Util.Locale.Us);
-                    speaker.SetSpeechRate(speed);//设置的语速
+                    speaker.SetPitch(_Pitch);//音高
+                    speaker.SetSpeechRate(_Speed);//设置的语速
                     speaker.Speak(toSpeak, QueueMode.Flush, null, null);
                 }
             }
@@ -38,6 +41,7 @@ namespace mmx.Droid
             if (status.Equals(OperationResult.Success))
             {
                 speaker.SetLanguage(Java.Util.Locale.Us);
+                speaker.SetPitch(_Pitch);//音高
                 speaker.SetSpeechRate(_Speed);//初始化的语速
                 speaker.Speak(toSpeak, QueueMode.Flush, null, null);
             }
