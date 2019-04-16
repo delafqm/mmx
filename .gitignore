@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 bin
 /
 obj
 
 /
+=======
+bin/
+obj/
+>>>>>>> e1ca5b245b2b536da1c5c8bad293dd70790d28ff
 .vs/
