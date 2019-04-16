@@ -9,12 +9,24 @@
                     FontAttributes="Bold" 
                     FontSize="20" 
                     HorizontalOptions="CenterAndExpand"/>
+            <Editor Placeholder="语速 1.0是正常语速"
+                    PlaceholderColor="Olive"
+                    x:Name="Speed"
+                    FontAttributes="Bold" 
+                    FontSize="14" 
+                    HorizontalOptions="CenterAndExpand"/>
+            <Editor Placeholder="音高 1.0是正常音高"
+                    PlaceholderColor="Olive"
+                    x:Name="Pitch"
+                    FontAttributes="Bold" 
+                    FontSize="14" 
+                    HorizontalOptions="CenterAndExpand"/>
             <StackLayout Orientation="Horizontal">
                 <Button HorizontalOptions="CenterAndExpand" Clicked="OnSpeakClicked" Text="正常"/>
                 <Button HorizontalOptions="CenterAndExpand" Clicked="OnSlowSpeakClicked" Text="慢速"/>
                 <Button HorizontalOptions="CenterAndExpand" Clicked="OnSuperSlowSpeakClicked" Text="超慢"/>
             </StackLayout>
-            <StackLayout Margin="10" Orientation="Horizontal">
+            <StackLayout Margin="20" Orientation="Horizontal">
                 <Label x:Name="lblStatus1" HorizontalOptions="Start" Text="状态1"/>
             </StackLayout>
 

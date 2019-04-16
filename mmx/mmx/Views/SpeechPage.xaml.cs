@@ -34,20 +34,34 @@ namespace mmx.Views
 
         void OnSpeakClicked(object sender, EventArgs e)
         {
+            float _speed = 1f;
+            float _pitch = 1f;
+            bool isError = false;
+            try
+            {
+                _speed = Convert.ToSingle(Speed.Text.Trim());
+                _pitch = Convert.ToSingle(Pitch.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                lblStatus1.Text = "数据转换出错";
+                isError = true;
+            }
             //var todoItem = (TodoItem)BindingContext;
-            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 1f);
+            if (!isError)
+                DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), _speed, _pitch);
         }
 
         void OnSlowSpeakClicked(object sender, EventArgs e)
         {
             //var todoItem = (TodoItem)BindingContext;
-            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.5f);
+            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.5f, 1f);
         }
 
         void OnSuperSlowSpeakClicked(object sender, EventArgs e)
         {
             //var todoItem = (TodoItem)BindingContext;
-            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.1f);
+            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.1f, 1f);
         }
 
         void OnRecordPressed(object sender, EventArgs e)

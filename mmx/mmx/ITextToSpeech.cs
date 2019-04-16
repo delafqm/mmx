@@ -2,6 +2,6 @@
 {
     public interface ITextToSpeech
     {
-        void Speak(string text, float speed);
+        void Speak(string text, float speed, float pitch);
     }
 }
