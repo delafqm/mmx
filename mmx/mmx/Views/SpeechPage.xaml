@@ -44,8 +44,8 @@
                 <Button HorizontalOptions="CenterAndExpand" Clicked="OnSlowSpeakClicked" Text="百度"/>
                 <Button HorizontalOptions="CenterAndExpand" Clicked="OnSuperSlowSpeakClicked" Text="迅飞"/>
             </StackLayout>
-            <StackLayout Margin="20" Orientation="Horizontal">
-                <Label x:Name="lblStatus1" HorizontalOptions="Start" Text="状态1"/>
+            <StackLayout Margin="10" Orientation="Horizontal">
+                <Label x:Name="lblStatus1" HorizontalOptions="CenterAndExpand" Text="状态1"/>
             </StackLayout>
 
             <Label BackgroundColor="Tomato" Margin="20" Text="自动识别内容" 

@@ -250,67 +250,73 @@ namespace mmx
 
         public static string Headers(string input,string filepath,string spd)
         {
-
-            string appID = "5caaefc3";
-            string APIKey = "4fb15435a527621199d0287ade092ca5";
-            String url = "http://api.xfyun.cn/v1/service/v1/tts";
             string result = "";
-
-            String bodys;
-            string text = input;
-            //对要合成语音的文字先用utf-8然后进行URL加密
-            byte[] textData = Encoding.UTF8.GetBytes(text);
-            text = HttpUtility.UrlEncode(textData);
-            bodys = string.Format("text={0}", text);
-
-
-            //aue = raw, 音频文件保存类型为 wav
-            //aue = lame, 音频文件保存类型为 mp3
-            string AUE = "lame";
-            string param = "{\"aue\":\"" + AUE + "\",\"auf\":\"audio/L16;rate=16000\",\"voice_name\":\"x_catherine\",\"speed\":\"" + spd + "\",\"engine_type\":\"intp65_en\"}";
-            //获取十位的时间戳
-            TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            string curTime = Convert.ToInt64(ts.TotalSeconds).ToString();
-            //对参数先utf-8然后用base64编码
-            byte[] paramData = Encoding.UTF8.GetBytes(param);
-            string paraBase64 = Convert.ToBase64String(paramData);
-            //形成签名
-            string checkSum = Md5(APIKey + curTime + paraBase64);
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.Headers.Add("X-Param", paraBase64);
-            request.Headers.Add("X-CurTime", curTime);
-            request.Headers.Add("X-Appid", appID);
-            request.Headers.Add("X-CheckSum", checkSum);
-
-            Stream requestStream = request.GetRequestStream();
-            StreamWriter streamWriter = new StreamWriter(requestStream, Encoding.GetEncoding("gb2312"));
-            streamWriter.Write(bodys);
-            streamWriter.Close();
-
-            String htmlStr = string.Empty;
-            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-            Stream responseStream = response.GetResponseStream();
-            using (StreamReader reader = new StreamReader(responseStream, Encoding.GetEncoding("UTF-8")))
+            try
             {
-                string header_type = response.Headers["Content-Type"];
-                if (header_type == "audio/mpeg")
+                string appID = "5caaefc3";
+                string APIKey = "4fb15435a527621199d0287ade092ca5";
+                String url = "http://api.xfyun.cn/v1/service/v1/tts";
+                
+
+                String bodys;
+                string text = input;
+                //对要合成语音的文字先用utf-8然后进行URL加密
+                byte[] textData = Encoding.UTF8.GetBytes(text);
+                text = HttpUtility.UrlEncode(textData);
+                bodys = string.Format("text={0}", text);
+
+
+                //aue = raw, 音频文件保存类型为 wav
+                //aue = lame, 音频文件保存类型为 mp3
+                string AUE = "lame";
+                string param = "{\"aue\":\"" + AUE + "\",\"auf\":\"audio/L16;rate=16000\",\"voice_name\":\"x_catherine\",\"speed\":\"" + spd + "\",\"engine_type\":\"intp65_en\"}";
+                //获取十位的时间戳
+                TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+                string curTime = Convert.ToInt64(ts.TotalSeconds).ToString();
+                //对参数先utf-8然后用base64编码
+                byte[] paramData = Encoding.UTF8.GetBytes(param);
+                string paraBase64 = Convert.ToBase64String(paramData);
+                //形成签名
+                string checkSum = Md5(APIKey + curTime + paraBase64);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.Headers.Add("X-Param", paraBase64);
+                request.Headers.Add("X-CurTime", curTime);
+                request.Headers.Add("X-Appid", appID);
+                request.Headers.Add("X-CheckSum", checkSum);
+
+                Stream requestStream = request.GetRequestStream();
+                StreamWriter streamWriter = new StreamWriter(requestStream, Encoding.GetEncoding("gb2312"));
+                streamWriter.Write(bodys);
+                streamWriter.Close();
+
+                String htmlStr = string.Empty;
+                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                Stream responseStream = response.GetResponseStream();
+                using (StreamReader reader = new StreamReader(responseStream, Encoding.GetEncoding("UTF-8")))
                 {
-                    Stream st = response.GetResponseStream();
-                    MemoryStream memoryStream = StreamToMemoryStream(st);
-                    File.WriteAllBytes(filepath, streamTobyte(memoryStream));
-                    //Console.WriteLine(response.Headers);
-                    //Console.ReadLine();
-                    result = "success";
+                    string header_type = response.Headers["Content-Type"];
+                    if (header_type == "audio/mpeg")
+                    {
+                        Stream st = response.GetResponseStream();
+                        MemoryStream memoryStream = StreamToMemoryStream(st);
+                        File.WriteAllBytes(filepath, streamTobyte(memoryStream));
+                        //Console.WriteLine(response.Headers);
+                        //Console.ReadLine();
+                        result = "success";
+                    }
+                    else
+                    {
+                        result = reader.ReadToEnd();
+                    }
                 }
-                else
-                {
-                    result = reader.ReadToEnd();
-                }
+                responseStream.Close();
             }
-            responseStream.Close();
+            catch(Exception ex)
+            { result = ex.Message; }
+
             return result;
         }
 
