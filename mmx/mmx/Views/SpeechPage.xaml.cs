@@ -16,6 +16,8 @@ namespace mmx.Views
 	public partial class SpeechPage : ContentPage
 	{
         static string filepath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "testAudio.amr");
+        static string filemp3 = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "testAudio.mp3");
+        static string filexunfei = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "testAudioxunfei.mp3");
 
 
         public SpeechPage ()
@@ -28,7 +30,7 @@ namespace mmx.Views
             InitializeComponent();
 
             InputText.Text = Text;
-            InputText.IsEnabled = false;
+            //InputText.IsEnabled = false;
             //BindingContext
         }
 
@@ -49,25 +51,75 @@ namespace mmx.Views
             }
             //var todoItem = (TodoItem)BindingContext;
             if (!isError)
+            {
                 DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), _speed, _pitch);
+            }
         }
 
-        void OnSlowSpeakClicked(object sender, EventArgs e)
+        async void OnSlowSpeakClicked(object sender, EventArgs e)
         {
+            int _spd = 5;
+            int _pit = 5;
+            bool isError = false;
+            try
+            {
+                _spd = Convert.ToInt16(Speed1.Text.Trim());
+                _pit = Convert.ToInt16(Pitch1.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                lblStatus1.Text = "数据转换出错";
+                isError = true;
+            }
+            if (!isError)
+            {
+                lblStatus1.Text = "正在合成中";
+                SpeechResult result = await mmx.Speech.Tts(InputText.Text.Trim(), _spd, _pit);
+
+                if (result.status == 0)
+                {
+                    //lblStatus1.Text = "";
+                    File.WriteAllBytes(filemp3, result.speech);
+                    lblStatus1.Text = "正在播放中";
+                    playmp3(filemp3);
+                }
+                else
+                {
+                    lblStatus1.Text = result.error;
+                }
+            }
             //var todoItem = (TodoItem)BindingContext;
-            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.5f, 1f);
+            //DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.5f, 1f);
         }
 
         void OnSuperSlowSpeakClicked(object sender, EventArgs e)
         {
+            int _spd = 50;
+            bool isError = false;
+            try
+            {
+                _spd = Convert.ToInt16(Speed2.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                lblStatus1.Text = "数据转换出错";
+                isError = true;
+            }
+
+            if (!isError)
+            {
+                string result = mmx.Speech.Headers(InputText.Text.Trim(), filexunfei, _spd.ToString());
+                lblStatus1.Text = result;
+                if (result == "success")
+                    playmp3(filexunfei);
+            }
             //var todoItem = (TodoItem)BindingContext;
-            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.1f, 1f);
+            //DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.1f, 1f);
         }
 
         void OnRecordPressed(object sender, EventArgs e)
         {
             DependencyService.Get<IAudioRecorder>().Start(filepath);
-
             lblStatus1.Text = "音频录制中";
         }
 
@@ -78,8 +130,8 @@ namespace mmx.Views
             lblStatus1.Text = "正在识别中";
             //使用百度API进行语音识别
             //OutputText.Text = await ToTextByBaidu();
-            var result = await ToTextByBaidu();
-            OutputText.Text = result;
+            SpeechResult result = await mmx.Speech.Asr(filepath);
+            OutputText.Text = result.text;
             lblStatus1.Text = "";
         }
 
@@ -132,9 +184,14 @@ namespace mmx.Views
 
         void OnPlayClicked(object sender, EventArgs e)
         {
-            if (File.Exists(filepath))
+            playmp3(filepath);
+        }
+
+        void playmp3(string fp)
+        {
+            if (File.Exists(fp))
             {
-                DependencyService.Get<IAudioRecorder>().Play(filepath);
+                DependencyService.Get<IAudioRecorder>().Play(fp, lblStatus1);
             }
             else
             {

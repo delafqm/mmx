@@ -17,10 +17,13 @@ using System.IO;
 [assembly: Dependency(typeof(AudioRecorder_Android))]
 namespace mmx.Droid
 {
-    public class AudioRecorder_Android : Object, IAudioRecorder
+    public class AudioRecorder_Android : Java.Lang.Object, IAudioRecorder, MediaPlayer.IOnCompletionListener
     {
         MediaRecorder recorder = null;
         MediaPlayer mMediaPlayer = null;
+        Label lblStatus;
+
+        //public IntPtr Handle => throw new NotImplementedException();
 
         //static string filePath = Android.OS.Environment.ExternalStorageDirectory + "/" + Android.OS.Environment.DirectoryMusic + "/testAudio.amr";
 
@@ -77,8 +80,11 @@ namespace mmx.Droid
             }
         }
 
-        public void Play(string filepath)
+        public void Play(string filepath, Label lbl)
         {
+            lblStatus = lbl;
+            lblStatus.Text = "播放中";
+
             if (mMediaPlayer == null)
             {
                 mMediaPlayer = new MediaPlayer();
@@ -89,9 +95,23 @@ namespace mmx.Droid
             }
 
             
+
             mMediaPlayer.SetDataSource(filepath);//设置播放源
-            mMediaPlayer.Prepare();//异步缓冲数据
+            mMediaPlayer.SetOnCompletionListener(this);
+
+            mMediaPlayer.Prepare();//缓冲数据
             mMediaPlayer.Start();//开始播放
+        }
+
+        public void OnCompletion(MediaPlayer mp)
+        {
+            lblStatus.Text = "播放完成";
+            //throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            //throw new NotImplementedException();
         }
     }
 }

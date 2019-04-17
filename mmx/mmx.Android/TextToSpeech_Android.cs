@@ -9,6 +9,7 @@ namespace mmx.Droid
     public class TextToSpeech_Android : Object, ITextToSpeech, TextToSpeech.IOnInitListener
     {
         TextToSpeech speaker;
+        
         string toSpeak;
         float _Speed = 1f;
         float _Pitch = 1f;
@@ -20,10 +21,10 @@ namespace mmx.Droid
                 _Speed = speed;
                 _Pitch = pitch;
                 toSpeak = text;
+                
                 if (speaker == null)
                 {
                     speaker = new TextToSpeech(MainActivity.Instance, this);
-
                 }
                 else
                 {

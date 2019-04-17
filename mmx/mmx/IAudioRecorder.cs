@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace mmx
 {
@@ -10,6 +11,6 @@ namespace mmx
 
         void Stop();
 
-        void Play(string filepath);
+        void Play(string filepath, Label lblStatus);
     }
 }

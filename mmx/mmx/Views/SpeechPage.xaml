@@ -21,10 +21,28 @@
                     FontAttributes="Bold" 
                     FontSize="14" 
                     HorizontalOptions="CenterAndExpand"/>
+            <Editor Placeholder="百度语速 默认5"
+                    PlaceholderColor="Olive"
+                    x:Name="Speed1"
+                    FontAttributes="Bold" 
+                    FontSize="14" 
+                    HorizontalOptions="CenterAndExpand"/>
+            <Editor Placeholder="百度音高 默认5"
+                    PlaceholderColor="Olive"
+                    x:Name="Pitch1"
+                    FontAttributes="Bold" 
+                    FontSize="14" 
+                    HorizontalOptions="CenterAndExpand"/>
+            <Editor Placeholder="迅飞语速 默认50"
+                    PlaceholderColor="Olive"
+                    x:Name="Speed2"
+                    FontAttributes="Bold" 
+                    FontSize="14" 
+                    HorizontalOptions="CenterAndExpand"/>
             <StackLayout Orientation="Horizontal">
-                <Button HorizontalOptions="CenterAndExpand" Clicked="OnSpeakClicked" Text="正常"/>
-                <Button HorizontalOptions="CenterAndExpand" Clicked="OnSlowSpeakClicked" Text="慢速"/>
-                <Button HorizontalOptions="CenterAndExpand" Clicked="OnSuperSlowSpeakClicked" Text="超慢"/>
+                <Button HorizontalOptions="CenterAndExpand" Clicked="OnSpeakClicked" Text="自带"/>
+                <Button HorizontalOptions="CenterAndExpand" Clicked="OnSlowSpeakClicked" Text="百度"/>
+                <Button HorizontalOptions="CenterAndExpand" Clicked="OnSuperSlowSpeakClicked" Text="迅飞"/>
             </StackLayout>
             <StackLayout Margin="20" Orientation="Horizontal">
                 <Label x:Name="lblStatus1" HorizontalOptions="Start" Text="状态1"/>
