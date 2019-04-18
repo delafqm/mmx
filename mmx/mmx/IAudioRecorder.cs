@@ -11,6 +11,6 @@ namespace mmx
 
         void Stop();
 
-        void Play(string filepath, Label lblStatus);
+        void Play(string filepath, Button btn, string name);
     }
 }

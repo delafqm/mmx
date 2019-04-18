@@ -21,7 +21,8 @@ namespace mmx.Droid
     {
         MediaRecorder recorder = null;
         MediaPlayer mMediaPlayer = null;
-        Label lblStatus;
+        Xamarin.Forms.Button _btn;
+        string _name;
 
         //public IntPtr Handle => throw new NotImplementedException();
 
@@ -80,10 +81,10 @@ namespace mmx.Droid
             }
         }
 
-        public void Play(string filepath, Label lbl)
+        public void Play(string filepath, Xamarin.Forms.Button btn, string name)
         {
-            lblStatus = lbl;
-            lblStatus.Text = "播放中";
+            _btn = btn;
+            _name = name;
 
             if (mMediaPlayer == null)
             {
@@ -94,7 +95,7 @@ namespace mmx.Droid
                 mMediaPlayer.Reset();
             }
 
-            
+
 
             mMediaPlayer.SetDataSource(filepath);//设置播放源
             mMediaPlayer.SetOnCompletionListener(this);
@@ -105,7 +106,8 @@ namespace mmx.Droid
 
         public void OnCompletion(MediaPlayer mp)
         {
-            lblStatus.Text = "播放完成";
+            _btn.Text = _name;
+            _btn.IsEnabled = true;
             //throw new NotImplementedException();
         }
 

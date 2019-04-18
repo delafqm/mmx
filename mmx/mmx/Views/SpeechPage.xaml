@@ -9,40 +9,10 @@
                     FontAttributes="Bold" 
                     FontSize="20" 
                     HorizontalOptions="CenterAndExpand"/>
-            <Editor Placeholder="语速 1.0是正常语速"
-                    PlaceholderColor="Olive"
-                    x:Name="Speed"
-                    FontAttributes="Bold" 
-                    FontSize="14" 
-                    HorizontalOptions="CenterAndExpand"/>
-            <Editor Placeholder="音高 1.0是正常音高"
-                    PlaceholderColor="Olive"
-                    x:Name="Pitch"
-                    FontAttributes="Bold" 
-                    FontSize="14" 
-                    HorizontalOptions="CenterAndExpand"/>
-            <Editor Placeholder="百度语速 默认5"
-                    PlaceholderColor="Olive"
-                    x:Name="Speed1"
-                    FontAttributes="Bold" 
-                    FontSize="14" 
-                    HorizontalOptions="CenterAndExpand"/>
-            <Editor Placeholder="百度音高 默认5"
-                    PlaceholderColor="Olive"
-                    x:Name="Pitch1"
-                    FontAttributes="Bold" 
-                    FontSize="14" 
-                    HorizontalOptions="CenterAndExpand"/>
-            <Editor Placeholder="迅飞语速 默认50"
-                    PlaceholderColor="Olive"
-                    x:Name="Speed2"
-                    FontAttributes="Bold" 
-                    FontSize="14" 
-                    HorizontalOptions="CenterAndExpand"/>
             <StackLayout Orientation="Horizontal">
-                <Button HorizontalOptions="CenterAndExpand" Clicked="OnSpeakClicked" Text="自带"/>
-                <Button HorizontalOptions="CenterAndExpand" Clicked="OnSlowSpeakClicked" Text="百度"/>
-                <Button HorizontalOptions="CenterAndExpand" Clicked="OnSuperSlowSpeakClicked" Text="迅飞"/>
+                <Button x:Name="BtnSpeak" HorizontalOptions="CenterAndExpand" Clicked="OnSpeakClicked" Text="正常"/>
+                <Button x:Name="BtnSlowSpeak" HorizontalOptions="CenterAndExpand" Clicked="OnSlowSpeakClicked" Text="半速"/>
+                <Button x:Name="BtnSuperSlowSpeak" HorizontalOptions="CenterAndExpand" Clicked="OnSuperSlowSpeakClicked" Text="微速"/>
             </StackLayout>
             <StackLayout Margin="10" Orientation="Horizontal">
                 <Label x:Name="lblStatus1" HorizontalOptions="CenterAndExpand" Text="状态1"/>

@@ -36,103 +36,44 @@ namespace mmx.Views
 
         void OnSpeakClicked(object sender, EventArgs e)
         {
-            float _speed = 1f;
-            float _pitch = 1f;
-            bool isError = false;
-            try
-            {
-                _speed = Convert.ToSingle(Speed.Text.Trim());
-                _pitch = Convert.ToSingle(Pitch.Text.Trim());
-            }
-            catch (Exception ex)
-            {
-                lblStatus1.Text = "数据转换出错";
-                isError = true;
-            }
-            //var todoItem = (TodoItem)BindingContext;
-            if (!isError)
-            {
-                DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), _speed, _pitch);
-            }
+            BtnSpeak.Text = "播放中";
+            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 1f, 1f, BtnSpeak, "正常");
         }
 
-        async void OnSlowSpeakClicked(object sender, EventArgs e)
+        void OnSlowSpeakClicked(object sender, EventArgs e)
         {
-            int _spd = 5;
-            int _pit = 5;
-            bool isError = false;
-            try
-            {
-                _spd = Convert.ToInt16(Speed1.Text.Trim());
-                _pit = Convert.ToInt16(Pitch1.Text.Trim());
-            }
-            catch (Exception ex)
-            {
-                lblStatus1.Text = "数据转换出错";
-                isError = true;
-            }
-            if (!isError)
-            {
-                lblStatus1.Text = "正在合成中";
-                SpeechResult result = await mmx.Speech.Tts(InputText.Text.Trim(), _spd, _pit);
+            BtnSlowSpeak.Text = "播放中";
+            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.5f, 1f, BtnSlowSpeak, "半速");
 
-                if (result.status == 0)
-                {
-                    //lblStatus1.Text = "";
-                    File.WriteAllBytes(filemp3, result.speech);
-                    lblStatus1.Text = "正在播放中";
-                    playmp3(filemp3);
-                }
-                else
-                {
-                    lblStatus1.Text = result.error;
-                }
-            }
-            //var todoItem = (TodoItem)BindingContext;
-            //DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.5f, 1f);
+            //测试用，调用百度语音合成API
+            //SpeechResult result = await mmx.Speech.Tts(InputText.Text.Trim(), _spd, _pit);
         }
 
         void OnSuperSlowSpeakClicked(object sender, EventArgs e)
         {
-            int _spd = 50;
-            bool isError = false;
-            try
-            {
-                _spd = Convert.ToInt16(Speed2.Text.Trim());
-            }
-            catch (Exception ex)
-            {
-                lblStatus1.Text = "数据转换出错";
-                isError = true;
-            }
+            BtnSuperSlowSpeak.Text= "播放中";
+            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.1f, 1f, BtnSuperSlowSpeak, "微速");
 
-            if (!isError)
-            {
-                string result = mmx.Speech.Headers(InputText.Text.Trim(), filexunfei, _spd.ToString());
-                lblStatus1.Text = result;
-                if (result == "success")
-                    playmp3(filexunfei);
-            }
-            //var todoItem = (TodoItem)BindingContext;
-            //DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.1f, 1f);
+            //测试用，调用迅飞语音合成API
+            //string result = mmx.Speech.Headers(InputText.Text.Trim(), filexunfei, _spd.ToString());
         }
 
         void OnRecordPressed(object sender, EventArgs e)
         {
+            btnRecord.Text = "音频录制中";
             DependencyService.Get<IAudioRecorder>().Start(filepath);
-            lblStatus1.Text = "音频录制中";
         }
 
         async void OnRecordReleased(object sender, EventArgs e)
         {
             DependencyService.Get<IAudioRecorder>().Stop();
 
-            lblStatus1.Text = "正在识别中";
+            btnRecord.Text = "正在识别中";
             //使用百度API进行语音识别
             //OutputText.Text = await ToTextByBaidu();
             SpeechResult result = await mmx.Speech.Asr(filepath);
             OutputText.Text = result.text;
-            lblStatus1.Text = "";
+            btnRecord.Text = "录音识别";
         }
 
         static async Task<string> ToTextByBaidu()
@@ -187,11 +128,17 @@ namespace mmx.Views
             playmp3(filepath);
         }
 
+        /// <summary>
+        /// 播放声音
+        /// </summary>
+        /// <param name="fp">声音文件地址</param>
         void playmp3(string fp)
         {
             if (File.Exists(fp))
             {
-                DependencyService.Get<IAudioRecorder>().Play(fp, lblStatus1);
+                btnPlay.Text = "播放中";
+                btnPlay.IsEnabled = false;
+                DependencyService.Get<IAudioRecorder>().Play(fp, btnPlay, "播放录音");
             }
             else
             {
