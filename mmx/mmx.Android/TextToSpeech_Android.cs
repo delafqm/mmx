@@ -7,26 +7,28 @@ using System.Threading.Tasks;
 [assembly: Dependency(typeof(TextToSpeech_Android))]
 namespace mmx.Droid
 {
-    public class TextToSpeech_Android : Object, ITextToSpeech, TextToSpeech.IOnInitListener
+    public class TextToSpeech_Android : Object, ITextToSpeech, TextToSpeech.IOnInitListener, TextToSpeech.IOnUtteranceCompletedListener
     {
         TextToSpeech speaker;
-        Button btnSpeech;
-        string _name;
+
+        string _abc;
+        public string abc
+        {
+            set { _abc = value; }
+            get { return _abc; }
+        }
 
         string toSpeak;
         float _Speed = 1f;
         float _Pitch = 1f;
 
-        public void Speak(string text, float speed, float pitch, Button btn, string name)
+        public void Speak(string text, float speed, float pitch)
         {
             if (!string.IsNullOrWhiteSpace(text))
             {
                 _Speed = speed;
                 _Pitch = pitch;
-                _name = name;
-                btnSpeech = btn;
                 toSpeak = text;
-
                 if (speaker == null)
                 {
                     speaker = new TextToSpeech(MainActivity.Instance, this);
@@ -34,18 +36,24 @@ namespace mmx.Droid
                 }
                 else
                 {
-                    speaker.SetOnUtteranceProgressListener(new ttsUtteranceListener(ref btnSpeech, _name));
-                    speaker.SetLanguage(Java.Util.Locale.Us);//设置语言
+                    if (speaker.IsSpeaking)
+                    {
+                        speaker.Stop();
+                    }
+                    //speaker.SetOnUtteranceProgressListener(new ttsUtteranceListener(btnSpeech, _name));
+                    //speaker.SetOnUtteranceCompletedListener(this);
+                    //speaker.SetLanguage(Java.Util.Locale.Us);//设置语言
                     speaker.SetPitch(_Pitch);//音高
                     speaker.SetSpeechRate(_Speed);//设置的语速
                     speaker.Speak(toSpeak, QueueMode.Flush, null, "UniqueID");
+                    
                 }
 
-                ttsUtteranceListener abc = new ttsUtteranceListener()
-                {
-                     private override void onDone(String utteranceId) { }
-    };
-}
+                //            ttsUtteranceListener abc = new ttsUtteranceListener()
+                //            {
+                //                 private override void onDone(String utteranceId) { }
+                //};
+            }
         }
 
         #region IOnInitListener implementation
@@ -53,13 +61,20 @@ namespace mmx.Droid
         {
             if (status.Equals(OperationResult.Success))
             {
-                speaker.SetOnUtteranceProgressListener(new ttsUtteranceListener(ref btnSpeech, _name));
+                //speaker.SetOnUtteranceProgressListener(new ttsUtteranceListener(btnSpeech, _name));
+                //speaker.SetOnUtteranceCompletedListener(this);
                 speaker.SetLanguage(Java.Util.Locale.Us);//设置语言
                 speaker.SetPitch(_Pitch);//音高
                 speaker.SetSpeechRate(_Speed);//初始化的语速
                 speaker.Speak(toSpeak, QueueMode.Flush, null, "UniqueID");
             }
+        }
 
+        public void OnUtteranceCompleted(string utteranceId)
+        {
+            //_abc = "播放完成";
+            //btnSpeech.Text = _name;
+            //throw new System.NotImplementedException();
         }
 
         #endregion
@@ -73,7 +88,7 @@ namespace mmx.Droid
         public ttsUtteranceListener()
         { }
 
-        public ttsUtteranceListener(ref Button btn, string name)
+        public ttsUtteranceListener(Button btn, string name)
         {
             _btn = btn;
             _name = name;
@@ -81,8 +96,8 @@ namespace mmx.Droid
 
         public override void OnDone(string utteranceId)
         {
-            _btn.Text = _name;
-            _btn.IsEnabled = true;
+            //_btn.Text = _name;
+            //_btn.IsEnabled = true;
             //throw new System.NotImplementedException();
         }
 

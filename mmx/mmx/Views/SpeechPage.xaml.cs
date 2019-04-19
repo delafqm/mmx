@@ -36,14 +36,15 @@ namespace mmx.Views
 
         void OnSpeakClicked(object sender, EventArgs e)
         {
-            BtnSpeak.Text = "播放中";
-            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 1f, 1f, BtnSpeak, "正常");
+            //BtnSpeak.Text = "播放中";
+            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 1f, 1f);
+            //DependencyService.Get<ITextToSpeech>().abc
         }
 
         void OnSlowSpeakClicked(object sender, EventArgs e)
         {
-            BtnSlowSpeak.Text = "播放中";
-            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.5f, 1f, BtnSlowSpeak, "半速");
+            //BtnSlowSpeak.Text = "播放中";
+            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.5f, 1f);
 
             //测试用，调用百度语音合成API
             //SpeechResult result = await mmx.Speech.Tts(InputText.Text.Trim(), _spd, _pit);
@@ -51,8 +52,8 @@ namespace mmx.Views
 
         void OnSuperSlowSpeakClicked(object sender, EventArgs e)
         {
-            BtnSuperSlowSpeak.Text= "播放中";
-            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.1f, 1f, BtnSuperSlowSpeak, "微速");
+            //BtnSuperSlowSpeak.Text= "播放中";
+            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.1f, 1f);
 
             //测试用，调用迅飞语音合成API
             //string result = mmx.Speech.Headers(InputText.Text.Trim(), filexunfei, _spd.ToString());
