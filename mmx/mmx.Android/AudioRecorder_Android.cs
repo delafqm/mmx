@@ -105,8 +105,6 @@ namespace mmx.Droid
             }
             catch(Exception ex)
             {
-                mMediaPlayer.Reset();
-                mMediaPlayer.Dispose();
                 Android.Widget.Toast.MakeText(MainActivity.Instance, "开始播放出错：" + ex, Android.Widget.ToastLength.Long).Show();
             }
         }
@@ -123,12 +121,12 @@ namespace mmx.Droid
             try
             {
                 //播放完释放资源
-                if (mp != null)
+                if (mMediaPlayer != null)
                 {
-                    mp.Stop();
-                    mp.Reset();
-                    mp.Dispose();
-                    mp = null;
+                    mMediaPlayer.Stop();
+                    mMediaPlayer.Reset();
+                    mMediaPlayer.Dispose();
+                    mMediaPlayer = null;
                 }
             }
             catch (Exception ex)
@@ -138,7 +136,6 @@ namespace mmx.Droid
                     Android.Widget.Toast.MakeText(MainActivity.Instance, "播放完成出错：" + ex, Android.Widget.ToastLength.Long).Show();
                 });
             }
-            //throw new NotImplementedException();
         }
 
         public void Dispose()
