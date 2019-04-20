@@ -86,33 +86,64 @@ namespace mmx.Droid
             _btn = btn;
             _name = name;
 
-            if (mMediaPlayer == null)
+            try
             {
-                mMediaPlayer = new MediaPlayer();
+                if (mMediaPlayer == null)
+                {
+                    mMediaPlayer = new MediaPlayer();
+                }
+                else
+                {
+                    mMediaPlayer.Reset();
+                }
+
+                mMediaPlayer.SetDataSource(filepath);//设置播放源
+                mMediaPlayer.SetOnCompletionListener(this);//设置完成监听
+
+                mMediaPlayer.Prepare();//缓冲数据
+                mMediaPlayer.Start();//开始播放
             }
-            else
+            catch(Exception ex)
             {
                 mMediaPlayer.Reset();
+                mMediaPlayer.Dispose();
+                Android.Widget.Toast.MakeText(MainActivity.Instance, "开始播放出错：" + ex, Android.Widget.ToastLength.Long).Show();
             }
-
-
-
-            mMediaPlayer.SetDataSource(filepath);//设置播放源
-            mMediaPlayer.SetOnCompletionListener(this);
-
-            mMediaPlayer.Prepare();//缓冲数据
-            mMediaPlayer.Start();//开始播放
         }
 
         public void OnCompletion(MediaPlayer mp)
         {
-            _btn.Text = _name;
-            _btn.IsEnabled = true;
+            var activity = MainActivity.Instance;
+            activity.RunOnUiThread(() =>
+            {
+                _btn.Text = _name;
+                _btn.IsEnabled = true;
+            });
+
+            try
+            {
+                //播放完释放资源
+                if (mp != null)
+                {
+                    mp.Stop();
+                    mp.Reset();
+                    mp.Dispose();
+                    mp = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                activity.RunOnUiThread(() =>
+                {
+                    Android.Widget.Toast.MakeText(MainActivity.Instance, "播放完成出错：" + ex, Android.Widget.ToastLength.Long).Show();
+                });
+            }
             //throw new NotImplementedException();
         }
 
         public void Dispose()
         {
+            ;
             //throw new NotImplementedException();
         }
     }

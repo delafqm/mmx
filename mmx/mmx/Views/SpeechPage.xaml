@@ -10,9 +10,8 @@
                     FontSize="20" 
                     HorizontalOptions="CenterAndExpand"/>
             <StackLayout Orientation="Horizontal">
-                <Button x:Name="BtnSpeak" HorizontalOptions="CenterAndExpand" Clicked="OnSpeakClicked" Text="正常"/>
-                <Button x:Name="BtnSlowSpeak" HorizontalOptions="CenterAndExpand" Clicked="OnSlowSpeakClicked" Text="半速"/>
-                <Button x:Name="BtnSuperSlowSpeak" HorizontalOptions="CenterAndExpand" Clicked="OnSuperSlowSpeakClicked" Text="微速"/>
+                <Button x:Name="BtnSpeak" HorizontalOptions="CenterAndExpand" Clicked="OnSpeakClicked"/>
+                <Picker x:Name="SelectSpeek" HorizontalOptions="StartAndExpand" Title="选择朗读的速度" />
             </StackLayout>
             <StackLayout Margin="10" Orientation="Horizontal">
                 <Label x:Name="lblStatus1" HorizontalOptions="CenterAndExpand" Text="状态1"/>

@@ -16,9 +16,15 @@ namespace mmx.Views
 	public partial class SpeechPage : ContentPage
 	{
         static string filepath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "testAudio.amr");
-        static string filemp3 = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "testAudio.mp3");
-        static string filexunfei = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "testAudioxunfei.mp3");
+        //static string filemp3 = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "testAudio.mp3");
+        //static string filexunfei = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "testAudioxunfei.mp3");
 
+        Dictionary<string, float> mySpeek = new Dictionary<string, float>
+        {
+            {"正常速度朗读",1f },
+            {"一半速度朗读",0.5f },
+            {"1/10速度朗读",0.1f }
+        };
 
         public SpeechPage ()
 		{
@@ -30,21 +36,41 @@ namespace mmx.Views
             InitializeComponent();
 
             InputText.Text = Text;
+            BtnSpeak.Text = "🔊";
+
+            
+            foreach (var speek in mySpeek.Keys)
+            {
+                SelectSpeek.Items.Add(speek);
+            }
+
             //InputText.IsEnabled = false;
             //BindingContext
         }
 
+        void SelectSpeekChanged(object sender, EventArgs e)
+        {
+        }
+
         void OnSpeakClicked(object sender, EventArgs e)
         {
-            //BtnSpeak.Text = "播放中";
-            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 1f, 1f);
+            float _speek = 1f;
+            if (SelectSpeek.SelectedIndex != -1)
+            {
+                _speek = mySpeek[SelectSpeek.Items[SelectSpeek.SelectedIndex]];
+            }
+
+
+            BtnSpeak.Text = "▶";
+            BtnSpeak.IsEnabled = false;
+            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), _speek, 1f, BtnSpeak, "🔊");
             //DependencyService.Get<ITextToSpeech>().abc
         }
 
         void OnSlowSpeakClicked(object sender, EventArgs e)
         {
             //BtnSlowSpeak.Text = "播放中";
-            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.5f, 1f);
+            //DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.5f, 1f, BtnSpeak);
 
             //测试用，调用百度语音合成API
             //SpeechResult result = await mmx.Speech.Tts(InputText.Text.Trim(), _spd, _pit);
@@ -53,7 +79,7 @@ namespace mmx.Views
         void OnSuperSlowSpeakClicked(object sender, EventArgs e)
         {
             //BtnSuperSlowSpeak.Text= "播放中";
-            DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.1f, 1f);
+            //DependencyService.Get<ITextToSpeech>().Speak(InputText.Text.Trim(), 0.1f, 1f, BtnSpeak);
 
             //测试用，调用迅飞语音合成API
             //string result = mmx.Speech.Headers(InputText.Text.Trim(), filexunfei, _spd.ToString());
@@ -61,7 +87,7 @@ namespace mmx.Views
 
         void OnRecordPressed(object sender, EventArgs e)
         {
-            btnRecord.Text = "音频录制中";
+            btnRecord.Text = "正录制中";
             DependencyService.Get<IAudioRecorder>().Start(filepath);
         }
 
@@ -69,7 +95,7 @@ namespace mmx.Views
         {
             DependencyService.Get<IAudioRecorder>().Stop();
 
-            btnRecord.Text = "正在识别中";
+            btnRecord.Text = "正识别中";
             //使用百度API进行语音识别
             //OutputText.Text = await ToTextByBaidu();
             SpeechResult result = await mmx.Speech.Asr(filepath);
@@ -137,13 +163,14 @@ namespace mmx.Views
         {
             if (File.Exists(fp))
             {
-                btnPlay.Text = "播放中";
+                btnPlay.Text = "正播放中";
                 btnPlay.IsEnabled = false;
                 DependencyService.Get<IAudioRecorder>().Play(fp, btnPlay, "播放录音");
             }
             else
             {
-                lblStatus1.Text = "无录音";
+                //弹出提示
+                DependencyService.Get<IToast>().LongAlert("无语音文件");
             }
         }
     }

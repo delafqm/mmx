@@ -10,24 +10,21 @@ namespace mmx.Droid
     public class TextToSpeech_Android : Object, ITextToSpeech, TextToSpeech.IOnInitListener, TextToSpeech.IOnUtteranceCompletedListener
     {
         TextToSpeech speaker;
-
-        string _abc;
-        public string abc
-        {
-            set { _abc = value; }
-            get { return _abc; }
-        }
+        Button _btn = null;
 
         string toSpeak;
         float _Speed = 1f;
         float _Pitch = 1f;
+        string _msg;
 
-        public void Speak(string text, float speed, float pitch)
+        public void Speak(string text, float speed, float pitch ,Button btn,string msg)
         {
             if (!string.IsNullOrWhiteSpace(text))
             {
                 _Speed = speed;
                 _Pitch = pitch;
+                _btn = btn;
+                _msg = msg;
                 toSpeak = text;
                 if (speaker == null)
                 {
@@ -40,7 +37,7 @@ namespace mmx.Droid
                     {
                         speaker.Stop();
                     }
-                    //speaker.SetOnUtteranceProgressListener(new ttsUtteranceListener(btnSpeech, _name));
+                    speaker.SetOnUtteranceProgressListener(new ttsUtteranceListener(_btn, _msg));
                     //speaker.SetOnUtteranceCompletedListener(this);
                     //speaker.SetLanguage(Java.Util.Locale.Us);//设置语言
                     speaker.SetPitch(_Pitch);//音高
@@ -61,7 +58,7 @@ namespace mmx.Droid
         {
             if (status.Equals(OperationResult.Success))
             {
-                //speaker.SetOnUtteranceProgressListener(new ttsUtteranceListener(btnSpeech, _name));
+                speaker.SetOnUtteranceProgressListener(new ttsUtteranceListener(_btn, _msg));
                 //speaker.SetOnUtteranceCompletedListener(this);
                 speaker.SetLanguage(Java.Util.Locale.Us);//设置语言
                 speaker.SetPitch(_Pitch);//音高
@@ -72,7 +69,17 @@ namespace mmx.Droid
 
         public void OnUtteranceCompleted(string utteranceId)
         {
+            var activity = MainActivity.Instance;
+            activity.RunOnUiThread(() => {
+                //Android.Widget.Toast.MakeText(MainActivity.Instance, "播放完成", Android.Widget.ToastLength.Long).Show();
+                _btn.Text = "3";
+            });
             //_abc = "播放完成";
+            //Android.Widget.Toast.MakeText(MainActivity.Instance, "播放完成", Android.Widget.ToastLength.Long).Show();
+            //if (btnSpeech != null)
+            //{
+            //    btnSpeech.Text = "3";
+            //}
             //btnSpeech.Text = _name;
             //throw new System.NotImplementedException();
         }
@@ -83,22 +90,25 @@ namespace mmx.Droid
     public class ttsUtteranceListener : UtteranceProgressListener
     {
         Button _btn;
-        string _name;
+        string _text;
 
         public ttsUtteranceListener()
         { }
 
-        public ttsUtteranceListener(Button btn, string name)
+        public ttsUtteranceListener(Button btn,string text)
         {
             _btn = btn;
-            _name = name;
+            _text = text;
         }
 
         public override void OnDone(string utteranceId)
         {
-            //_btn.Text = _name;
-            //_btn.IsEnabled = true;
-            //throw new System.NotImplementedException();
+            var activity = MainActivity.Instance;
+            activity.RunOnUiThread(() => {
+                //Android.Widget.Toast.MakeText(MainActivity.Instance, "播放完成", Android.Widget.ToastLength.Long).Show();
+                _btn.Text = _text;
+                _btn.IsEnabled = true;
+            });
         }
 
         public override void OnError(string utteranceId)
