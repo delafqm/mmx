@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 
 using mmx.Models;
+using mmx.MobileAppService.Models;
 
 namespace mmx.MobileAppService
 {
@@ -29,8 +30,13 @@ namespace mmx.MobileAppService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+           services.AddSingleton(Configuration["DB:mysqlDB"]);
+
             services.AddMvc();
             services.AddSingleton<IItemRepository, ItemRepository>();
+
+            
 
             services.AddSwaggerGen(c =>
             {
