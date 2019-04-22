@@ -10,7 +10,7 @@ namespace mmx
     public partial class App : Application
     {
         //TODO: Replace with *.azurewebsites.net url after deploying backend to Azure
-        public static string AzureBackendUrl = "http://localhost:5000";
+        public static string AzureBackendUrl = "http://192.168.0.3:5000";
         public static bool UseMockDataStore = true;
 
         public App()

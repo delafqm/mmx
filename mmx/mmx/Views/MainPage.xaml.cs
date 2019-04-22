@@ -30,7 +30,7 @@ namespace mmx.Views
                         MenuPages.Add(id, new NavigationPage(new ItemsPage()));
                         break;
                     case (int)MenuItemType.Updata:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage()));
+                        MenuPages.Add(id, new NavigationPage(new Update()));
                         break;
                 }
             }

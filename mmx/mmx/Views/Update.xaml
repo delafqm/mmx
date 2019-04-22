@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="mmx.Views.Update"
+             Title="更新">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout x:Name="show1" IsVisible="False" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <ActivityIndicator
+                        x:Name="ShowRun"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        Color="Red" 
+                        IsRunning="True"/>
+            </StackLayout>
+            <StackLayout x:Name="show2" IsVisible="True">
+                <Button Text="添加数据"
+                    x:Name="btnAdd"
+                    Clicked="BtnAdd_Clicked"
+                HorizontalOptions="CenterAndExpand"/>
+                <Button Text="更新数据库"
+                    x:Name="btnUpdate"
+                    Clicked="BtnUpdate_Clicked"
+                HorizontalOptions="CenterAndExpand"/>
+                <StackLayout>
+                    <ListView x:Name="ItemsListView"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                CachingStrategy="RecycleElement">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Padding="10">
+                                        <Label Text="{Binding Text}" 
+                                LineBreakMode="NoWrap" 
+                                VerticalOptions="CenterAndExpand"
+                                HorizontalOptions="Center"
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
