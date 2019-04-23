@@ -9,6 +9,7 @@ using Swashbuckle.AspNetCore.Swagger;
 
 using mmx.Models;
 using mmx.MobileAppService.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace mmx.MobileAppService
 {
@@ -30,8 +31,11 @@ namespace mmx.MobileAppService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //Dapper
            services.AddSingleton(Configuration["DB:mysqlDB"]);
+            //EF
+            services.AddDbContext<DataContext>(o =>
+            o.UseMySQL(Configuration["DB:mysqlDB"]));
 
             services.AddMvc();
             services.AddSingleton<IItemRepository, ItemRepository>();

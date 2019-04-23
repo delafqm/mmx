@@ -5,9 +5,11 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mmx.Android", "mmx\mmx.Android\mmx.Android.csproj", "{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mmx.MobileAppService", "mmx\mmx.MobileAppService\mmx.MobileAppService.csproj", "{EBB361EB-9B25-486D-8CF2-4E7EB8157D2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mmx.MobileAppService", "mmx\mmx.MobileAppService\mmx.MobileAppService.csproj", "{EBB361EB-9B25-486D-8CF2-4E7EB8157D2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mmx", "mmx\mmx\mmx.csproj", "{B78A6A27-C441-454D-8730-B29FDD5C1624}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mmx", "mmx\mmx\mmx.csproj", "{B78A6A27-C441-454D-8730-B29FDD5C1624}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mmx.mvc", "mmx.mvc\mmx.mvc.csproj", "{EF90FD6D-2B46-4861-9736-D0BB71065787}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B78A6A27-C441-454D-8730-B29FDD5C1624}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B78A6A27-C441-454D-8730-B29FDD5C1624}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B78A6A27-C441-454D-8730-B29FDD5C1624}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{EF90FD6D-2B46-4861-9736-D0BB71065787}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF90FD6D-2B46-4861-9736-D0BB71065787}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF90FD6D-2B46-4861-9736-D0BB71065787}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF90FD6D-2B46-4861-9736-D0BB71065787}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
