@@ -47,16 +47,16 @@ namespace mmx.mvc.Controllers
 
         [Route("api/GetLastUpdate")]
         [HttpGet]
-        public async Task<Setting> SettingByUpdate()
+        public async Task<Settings> SettingByUpdate()
         {
-            Setting setting;
+            Settings setting;
             using (var conn = new MySqlConnection(_ConnStr))
             {
                 conn.Open();
 
                 string sqlcommand = @"select * from setting where Name=@Name";
 
-                setting = await conn.QueryFirstOrDefaultAsync<Setting>(sqlcommand, new { Name = "lastupdate" });
+                setting = await conn.QueryFirstOrDefaultAsync<Settings>(sqlcommand, new { Name = "lastupdate" });
 
                 conn.Close();
             }
@@ -194,7 +194,8 @@ namespace mmx.mvc.Controllers
                 db.Entry(lessons).State = EntityState.Modified;
 
                 //修改后设置内容已更新
-                Setting setting = db.Settings.Where(o => o.Name == "lastupdate").FirstOrDefault();
+                //var setting = db.Settings.Where(o => o.Name == "lastupdate").FirstOrDefault();
+                Settings setting = db.Settings.Where(o => o.Name == "lastupdate").FirstOrDefault();
                 setting.Update = DateTime.Now;
                 db.Entry(setting).State = EntityState.Modified;
 
@@ -226,7 +227,7 @@ namespace mmx.mvc.Controllers
                 Lessons lessons = db.Lessons.Find(id);
                 db.Lessons.Remove(lessons);
                 //删除后设置内容更新
-                Setting setting = db.Settings.Where(o => o.Name == "lastupdate").FirstOrDefault();
+                Settings setting = db.Settings.Where(o => o.Name == "lastupdate").FirstOrDefault();
                 setting.Update = DateTime.Now;
                 db.Entry(setting).State = EntityState.Modified;
 
