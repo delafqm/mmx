@@ -17,9 +17,9 @@ namespace mmx.ViewModels
 
         public LessonsViewModel()
         {
-            //Title = "课文";
-            //Items = new ObservableCollection<Lessons>();
-            //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            Title = "课文";
+            Items = new ObservableCollection<Lessons>();
+            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand(""));
         }
 
         public LessonsViewModel(Lessons lessons)

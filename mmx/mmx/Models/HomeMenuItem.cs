@@ -10,7 +10,9 @@ namespace mmx.Models
         [Description("人教版英语")]
         English,
         [Description("更新内容")]
-        Updata
+        Updata,
+        [Description("欢迎页面")]
+        welcome
     }
 
     public enum PalySpeed

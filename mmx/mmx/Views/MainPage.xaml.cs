@@ -15,8 +15,8 @@ namespace mmx.Views
         {
             InitializeComponent();
 
-            MasterBehavior = MasterBehavior.Popover;
-            MenuPages.Add((int)MenuItemType.English, (NavigationPage)Detail);
+            MasterBehavior = MasterBehavior.Default;
+            MenuPages.Add((int)MenuItemType.welcome, (NavigationPage)Detail);
         }
 
         public async Task NavigateFromMenu(int id)

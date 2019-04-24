@@ -11,7 +11,7 @@
     <MasterDetailPage.Detail>
         <NavigationPage>
             <x:Arguments>
-                <views:GradeListPage />
+                <views:Welcome />
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>
