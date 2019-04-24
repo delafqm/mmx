@@ -23,21 +23,21 @@ namespace mmx.Views
             BindingContext = this.viewModel = new LessonsViewModel();
         }
 
-        public LessonsListPage(Item item)
+        public LessonsListPage(Lessons item)
         {
             InitializeComponent();
 
-            BindingContext = this.viewModel = new LessonsViewModel(item.Text);
+            BindingContext = this.viewModel = new LessonsViewModel(item);
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Item;
+            var item = args.SelectedItem as Lessons;
             if (item == null)
                 return;
 
             //await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
-            await Navigation.PushAsync(new LessonsContentPage(item.Text));
+            await Navigation.PushAsync(new LessonsContentPage(item));
 
             // Manually deselect item.
             ItemsListView.SelectedItem = null;

@@ -12,7 +12,8 @@ namespace mmx.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>() ?? new MockDataStore();
+        //public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>() ?? new MockDataStore();
+        public SqliteDataStore sqliteData = new SqliteDataStore();
 
         bool isBusy = false;
         public bool IsBusy

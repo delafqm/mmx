@@ -16,7 +16,6 @@ namespace mmx.Views
             InitializeComponent();
 
             MasterBehavior = MasterBehavior.Popover;
-
             MenuPages.Add((int)MenuItemType.English, (NavigationPage)Detail);
         }
 
@@ -27,7 +26,7 @@ namespace mmx.Views
                 switch (id)
                 {
                     case (int)MenuItemType.English:
-                        MenuPages.Add(id, new NavigationPage(new ItemsPage()));
+                        MenuPages.Add(id, new NavigationPage(new GradeListPage()));
                         break;
                     case (int)MenuItemType.Updata:
                         MenuPages.Add(id, new NavigationPage(new Update()));

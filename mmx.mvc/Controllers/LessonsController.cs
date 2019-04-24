@@ -54,7 +54,7 @@ namespace mmx.mvc.Controllers
             {
                 conn.Open();
 
-                string sqlcommand = @"select * from setting where Name=@Name";
+                string sqlcommand = @"select * from settings where Name=@Name";
 
                 setting = await conn.QueryFirstOrDefaultAsync<Settings>(sqlcommand, new { Name = "lastupdate" });
 
@@ -91,12 +91,12 @@ namespace mmx.mvc.Controllers
         }
 
         /// <summary>
-        /// 初始化下拉框数据--上级ID
+        /// 初始化下拉框数据--上级ID, 年级和课程
         /// </summary>
         /// <returns></returns>
         public List<SelectListItem> GetSelectItems()
         {
-            var selectlist = db.Lessons.Where(t => t.Types == "G");
+            var selectlist = db.Lessons.Where(t => t.Types == "G" || t.Types == "L");
             //var selectlist1 = from t in selectlist select new SelectItem { Value = t.Gid, Text = t.Name };
             List<SelectListItem> selectlist2 = new List<SelectListItem>();
             selectlist2.Add(new SelectListItem { Value = null, Text = "顶层" });
@@ -186,7 +186,7 @@ namespace mmx.mvc.Controllers
             try
             {
                 Lessons lessons = db.Lessons.Find(id);
-
+                lessons.Sid = collection["Sid"];
                 lessons.Name = collection["Name"];
                 lessons.Text = collection["Text"];
                 lessons.Types = collection["Types"];

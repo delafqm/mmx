@@ -12,13 +12,13 @@ namespace mmx.ViewModels
 {
     public class GradeViewModel : BaseViewModel
     {
-        public ObservableCollection<Item> Items { get; set; }
+        public ObservableCollection<Lessons> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
 
         public GradeViewModel()
         {
             Title = "年级";
-            Items = new ObservableCollection<Item>();
+            Items = new ObservableCollection<Lessons>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
         }
 
@@ -32,7 +32,7 @@ namespace mmx.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetGradeItemsAsync(true);//这里获取数据，测试用内存数据
+                var items = await sqliteData.GetGradeItemsAsync();//DataStore.GetGradeItemsAsync(true);//这里获取数据，测试用内存数据
                 foreach (var item in items)
                 {
                     Items.Add(item);

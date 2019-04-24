@@ -14,11 +14,11 @@
                         IsRunning="True"/>
             </StackLayout>
             <StackLayout x:Name="show2" IsVisible="True">
-                <Button Text="添加数据"
+                <Button Text="更新远程数据库"
                     x:Name="btnAdd"
                     Clicked="BtnAdd_Clicked"
                 HorizontalOptions="CenterAndExpand"/>
-                <Button Text="更新数据库"
+                <Button Text="显示本地数据库"
                     x:Name="btnUpdate"
                     Clicked="BtnUpdate_Clicked"
                 HorizontalOptions="CenterAndExpand"/>
