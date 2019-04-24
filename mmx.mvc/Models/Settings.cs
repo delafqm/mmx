@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace mmx.mvc.Models
 {
-    public class Setting
+    public class Settings
     {
         public int Id { get; set; }
 

@@ -37,7 +37,8 @@ namespace mmx.Droid
                     {
                         speaker.Stop();
                     }
-                    speaker.SetOnUtteranceProgressListener(new ttsUtteranceListener(_btn, _msg));
+                    //每次传进来的按钮可能不一样
+                    //speaker.SetOnUtteranceProgressListener(new ttsUtteranceListener(_btn, _msg));
                     //speaker.SetOnUtteranceCompletedListener(this);
                     //speaker.SetLanguage(Java.Util.Locale.Us);//设置语言
                     speaker.SetPitch(_Pitch);//音高
@@ -45,11 +46,6 @@ namespace mmx.Droid
                     speaker.Speak(toSpeak, QueueMode.Flush, null, "UniqueID");
                     
                 }
-
-                //            ttsUtteranceListener abc = new ttsUtteranceListener()
-                //            {
-                //                 private override void onDone(String utteranceId) { }
-                //};
             }
         }
 
@@ -71,17 +67,9 @@ namespace mmx.Droid
         {
             var activity = MainActivity.Instance;
             activity.RunOnUiThread(() => {
-                //Android.Widget.Toast.MakeText(MainActivity.Instance, "播放完成", Android.Widget.ToastLength.Long).Show();
-                _btn.Text = "3";
+                _btn.Text = _msg;
+                _btn.IsEnabled = true;
             });
-            //_abc = "播放完成";
-            //Android.Widget.Toast.MakeText(MainActivity.Instance, "播放完成", Android.Widget.ToastLength.Long).Show();
-            //if (btnSpeech != null)
-            //{
-            //    btnSpeech.Text = "3";
-            //}
-            //btnSpeech.Text = _name;
-            //throw new System.NotImplementedException();
         }
 
         #endregion
@@ -105,7 +93,6 @@ namespace mmx.Droid
         {
             var activity = MainActivity.Instance;
             activity.RunOnUiThread(() => {
-                //Android.Widget.Toast.MakeText(MainActivity.Instance, "播放完成", Android.Widget.ToastLength.Long).Show();
                 _btn.Text = _text;
                 _btn.IsEnabled = true;
             });

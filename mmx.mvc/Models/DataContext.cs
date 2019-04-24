@@ -16,6 +16,6 @@ namespace mmx.mvc.Models
 
         public DbSet<Lessons> Lessons { get; set; }
 
-        public DbSet<Setting> Settings { get; set; }
+        public DbSet<Settings> Settings { get; set; }
     }
 }
