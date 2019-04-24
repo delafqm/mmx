@@ -37,6 +37,7 @@ namespace mmx.Services
             _GradeItems = new List<Item>();
             var _GradeMockItems = new List<Item>
             {
+                new Item { Id = Guid.NewGuid().ToString(), Text = "三年级上册", Description="This is an item description." },
                 new Item { Id = Guid.NewGuid().ToString(), Text = "三年级下册", Description="This is an item description." },
             };
 
