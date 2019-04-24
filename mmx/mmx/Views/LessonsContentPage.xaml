@@ -19,7 +19,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="10">
-                                <Label Text="{Binding Description}" 
+                                <Label Text="{Binding Text}" 
                                 LineBreakMode="NoWrap" 
                                 VerticalOptions="CenterAndExpand"
                                 HorizontalOptions="Center"
@@ -48,7 +48,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="10">
-                                <Label Text="{Binding Description}" 
+                                <Label Text="{Binding Text}" 
                                 LineBreakMode="NoWrap" 
                                 VerticalOptions="CenterAndExpand"
                                 HorizontalOptions="Center"

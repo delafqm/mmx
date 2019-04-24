@@ -22,21 +22,21 @@ namespace mmx.Views
             BindingContext = this.viewModel = new LessonsContentViewModel();
         }
 
-        public LessonsContentPage(string title)
+        public LessonsContentPage(Lessons item)
         {
             InitializeComponent();
 
-            BindingContext = this.viewModel = new LessonsContentViewModel(title);
+            BindingContext = this.viewModel = new LessonsContentViewModel(item);
         }
 
         async void OnSentenceItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Item;
+            var item = args.SelectedItem as Lessons;
             if (item == null)
                 return;
 
             //await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
-            await Navigation.PushAsync(new SpeechPage(item.Description));
+            await Navigation.PushAsync(new SpeechPage(item.Text));
 
             // 手动取消选择项目
             SentenceListView.SelectedItem = null;
@@ -44,12 +44,12 @@ namespace mmx.Views
 
         async void OnWordItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Item;
+            var item = args.SelectedItem as Lessons;
             if (item == null)
                 return;
 
             //await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
-            await Navigation.PushAsync(new SpeechPage(item.Description));
+            await Navigation.PushAsync(new SpeechPage(item.Text));
 
             // 手动取消选择项目
             WordListView.SelectedItem = null;
