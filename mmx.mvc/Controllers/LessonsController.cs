@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using mmx.mvc.Models;
 using MySql.Data.MySqlClient;
 using Dapper;
+using System.IO;
 
 namespace mmx.mvc.Controllers
 {
@@ -140,6 +141,7 @@ namespace mmx.mvc.Controllers
             list.Add(new SelectListItem { Value = "S", Text = "语句" });
             list.Add(new SelectListItem { Value = "W", Text = "单词" });
             return list;
+            File file = new File();
         }
 
         // POST: Item/Create

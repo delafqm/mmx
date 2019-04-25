@@ -36,9 +36,9 @@ namespace mmx.ViewModels
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
                 return false;
 
-            backingStore = value;
-            onChanged?.Invoke();
-            OnPropertyChanged(propertyName);
+            backingStore = value;   //属性赋值
+            onChanged?.Invoke();    //有方法则执行方法
+            OnPropertyChanged(propertyName);    //属性变化通知
             return true;
         }
 
