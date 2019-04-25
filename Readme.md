@@ -6,7 +6,7 @@ mmx
 mmx.Android
 -->xamarin.android
 
-mm.MobileAppService
+mmx.MobileAppService
 -->手机端访问的API（现没有起用）
 
 mmx.mvc
